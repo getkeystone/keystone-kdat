@@ -12,7 +12,7 @@ A KDAT is a numbered Keystone milestone with explicit scope, verification, evide
 
 ## KDAT naming
 
-KDAT stands for Keystone Deliverable Acceptance Test. Each number represents
+KDAT stands for Keystone Delivery Acceptance Test. Each number represents
 a discrete capability that has been defined, built, and verified (or, in some
 cases, described or referenced without full verification).
 
