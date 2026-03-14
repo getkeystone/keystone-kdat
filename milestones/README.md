@@ -4,6 +4,12 @@ This directory contains one page per KDAT milestone.
 
 ---
 
+## What KDAT means
+
+**KDAT = Keystone Delivery Acceptance Test**
+
+A KDAT is a numbered Keystone milestone with explicit scope, verification, evidence quality, and publication status. The KDAT sequence is used to track what is historically established, what is proven on the current branch, what is still under review, and what is not yet safe to claim publicly.
+
 ## KDAT naming
 
 KDAT stands for Keystone Deliverable Acceptance Test. Each number represents
