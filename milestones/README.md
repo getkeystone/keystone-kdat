@@ -29,20 +29,28 @@ single numbered milestone.
 
 ---
 
-## Evidence classes
+## Evidence classes (brief)
 
-See [docs/evidence-classes.md](../docs/evidence-classes.md) for full
-definitions.
+| Class | Meaning |
+|-------|---------|
+| Proven on current branch | Delivery commits on lrfd-backend-bootstrap; test scripts cited |
+| Historical baseline | Pre-dates the branch; referenced as prior established work |
+| Curated summary | Human narrative only; no branch commits verified |
+| Doc-only reference | Appears in docs; no dedicated delivery commit |
+| Underdocumented | Some evidence exists; insufficient to characterize fully |
+| Unknown | No evidence available |
+
+Full definitions: [docs/evidence-classes.md](../docs/evidence-classes.md)
 
 ---
 
 ## Milestone index
 
-### Historical baseline
+### Historical baseline — Ready to publish (2)
 - [KDAT-001A](KDAT-001A.md) — Single-machine governed retrieval proof
 - [KDAT-002](KDAT-002.md) — Console operator workflow UX
 
-### Branch-proven (lrfd-backend-bootstrap)
+### Branch-proven — Ready to publish (11)
 - [KDAT-003](KDAT-003.md) — Document governance UI + APIs
 - [KDAT-008](KDAT-008.md) — Case pack offline verifier
 - [KDAT-012](KDAT-012.md) — Structured requirements extraction
@@ -53,8 +61,10 @@ definitions.
 - [KDAT-017](KDAT-017.md) — Operator trust defaults
 - [KDAT-018](KDAT-018.md) — Tighter operator trust defaults
 - [KDAT-019](KDAT-019.md) — Domain + content_kind governance
-- [KDAT-020](KDAT-020.md) — Suggested queries panel
 - [KDAT-021](KDAT-021.md) — Orphan sidecar CI gate
+
+### Branch-proven — Needs review (no smoke lock)
+- [KDAT-020](KDAT-020.md) — Suggested queries panel (delivery commit exists; no regression lock)
 
 ### Doc-only
 - [KDAT-007](KDAT-007.md) — Supervisor workflow (doc-only reference)

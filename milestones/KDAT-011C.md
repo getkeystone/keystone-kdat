@@ -66,17 +66,26 @@ build. The dist leak guard confirms zero KDAT labels in operator-visible HTML."
 
 ## Known limitations and caveats
 
-- Curated sub-milestone. The branch has grouped KDAT-011 commits, not
-  distinctly tagged 011C commits.
-- `demo-run.sh` presence in deploy commit `1f22624` is confirmed; full
-  demo-run.sh coverage by smoke tests is not cited.
+- Curated sub-milestone. The branch has grouped KDAT-011 commits tagged to
+  `feat(kdat-011)`, not to `kdat-011c` specifically. The 011A/B/C subdivision
+  exists only in the curated narrative, not in commit evidence.
+- `demo-run.sh` is present in deploy commit `1f22624` but the end-to-end
+  demo flow is not covered by a dedicated smoke test. Its correct operation
+  is asserted by description only.
+- `check-dist-leaks.sh` verifies the KDAT label gate and exists as a local
+  file (`scripts/check-dist-leaks.sh`). This is the strongest evidence on this
+  page. It does NOT constitute proof of the broader 011C scope.
+- Do not cite the one-command demo run as independently proven. Cite only
+  the label-gate behavior, which is locally verifiable.
 
 ---
 
 ## Source basis
 
-Curated summary + partial branch evidence from keystone-deploy and
-keystone-console commits on lrfd-backend-bootstrap.
+Curated summary. Partial branch evidence for the admin-only label gate
+(keystone-deploy `check-dist-leaks.sh` + smoke T28, keystone-console
+commits `a377ff8` and `b026186`). Evidence for the full 011C scope is
+insufficient from the current branch log.
 
 ---
 

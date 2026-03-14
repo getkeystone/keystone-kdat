@@ -2,7 +2,7 @@
 
 **Status:** Historical baseline
 **Evidence class:** Historical baseline
-**Publication status:** Needs review
+**Publication status:** Ready to publish
 
 ---
 

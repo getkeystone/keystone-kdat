@@ -1,11 +1,16 @@
 # Keystone AI — KDAT Milestone Ledger
 
-This is the public milestone ledger for Keystone AI's KDAT (Keystone
-Deliverable Acceptance Test) program. It records what has been built,
-what has been proven, and what the evidence basis is for each claim.
+Keystone AI builds governed AI retrieval and decision-support systems for
+first-responder and operational contexts. KDAT milestones are numbered
+capability deliverables. This repo is the public record: what was built,
+what test evidence backs each claim, and what each milestone explicitly does
+not prove. Every page carries an evidence class and a publication status.
+Read those first. This is an evidence ledger, not a brochure.
 
-It is not a product brochure. It is not a marketing site. It is an evidence
-ledger designed to let technical readers evaluate claims against stated proof.
+13 milestones are currently ready to publish. 12 have delivery commits on
+the tracked branch. 8 are curated summaries awaiting validation.
+
+---
 
 ---
 
@@ -82,6 +87,10 @@ Generated from branch `lrfd-backend-bootstrap` (2026-03-14).
 | Historical baseline | 2 |
 | Curated summary | 8 |
 | Doc-only reference | 1 |
+| **Ready to publish** | **13** |
+
+Ready to publish = 11 proven-on-branch milestones + 2 historical baselines.
+KDAT-020 (proven on branch) is excluded: no smoke regression lock yet.
 
 Branch HEAD SHAs at generation time:
 - keystone-gov: `93aa470`

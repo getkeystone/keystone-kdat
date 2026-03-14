@@ -2,7 +2,7 @@
 
 ---
 
-## Proven
+## Proven — Ready to publish (11)
 
 Milestones with direct branch delivery commits, cited tests, and smoke locks.
 
@@ -18,14 +18,22 @@ Milestones with direct branch delivery commits, cited tests, and smoke locks.
 | [KDAT-017](../milestones/KDAT-017.md) | Operator trust defaults |
 | [KDAT-018](../milestones/KDAT-018.md) | Tighter operator trust defaults |
 | [KDAT-019](../milestones/KDAT-019.md) | Domain + content_kind governance |
-| [KDAT-020](../milestones/KDAT-020.md) | Suggested queries panel (needs smoke lock) |
 | [KDAT-021](../milestones/KDAT-021.md) | Orphan sidecar CI gate |
+
+## Proven — Needs review (1)
+
+Delivery commit exists; build verified; no smoke regression lock.
+
+| Milestone | Summary |
+|-----------|---------|
+| [KDAT-020](../milestones/KDAT-020.md) | Suggested queries panel — no smoke lock; do not cite as fully validated |
 
 ---
 
-## Historical baseline
+## Historical baseline — Ready to publish (2)
 
-Milestones established before the current tracked branch.
+Milestones established before the current tracked branch. Claims are conservative,
+accurately scoped as pre-branch baselines, and supported by local README references.
 
 | Milestone | Summary |
 |-----------|---------|

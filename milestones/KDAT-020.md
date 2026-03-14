@@ -30,9 +30,11 @@ mode switching for the medical suggestion.
 
 ## What this milestone does NOT prove
 
-- A dedicated smoke lock exists for the suggested queries panel
+- Regression safety: no smoke lock exists for this feature; a future refactor
+  could break it silently without automated detection
 - Exhaustive coverage of query domains or scenarios
-- The six queries are representative of all deployment scenarios
+- That the six queries are representative of all deployment scenarios
+- That mode-switching behavior is tested end-to-end against the backend
 
 ---
 
@@ -62,9 +64,14 @@ dedicated smoke regression lock yet."
 
 ## Known limitations and caveats
 
-- Needs a smoke regression lock before this milestone is considered fully
-  locked (hence "Needs review" publication status)
-- Query content is static; not driven by corpus content or user role
+- No smoke regression lock. This is the primary reason for "Needs review"
+  publication status. The feature exists and the build passes, but a future
+  change to the Query page could break the panel without CI catching it.
+- Query content is static; not driven by corpus content or user role.
+- The medical mode-switch (`session.setMode`) is verified by code inspection,
+  not by an end-to-end API call test.
+- Do not cite this milestone in external materials as fully validated until
+  a smoke lock is added.
 
 ---
 
