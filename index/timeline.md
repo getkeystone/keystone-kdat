@@ -74,13 +74,19 @@ pages as if they were independently proven milestones.
 | 2026-03-13 | KDAT-019 | Domain + content_kind governance |
 | 2026-03-13 | KDAT-021 | Orphan sidecar CI gate |
 | 2026-03-13/14 | KDAT-020 | Suggested queries panel |
+| 2026-03-14 | KDAT-022 | Backup + restore with smoke verification |
+| 2026-03-14 | KDAT-023 | Evidence signing key custody + rotation + trust store |
+| 2026-03-14 | KDAT-024 | Operational scope guard + CLARIFY_MODEL clarifier |
+| 2026-03-14 | KDAT-025 | Cloudflare Access smoke proof |
+| 2026-03-14 | KDAT-026 | Public demo reset timer |
 
 ---
 
 ## Evidence log metadata
 
 - Branch: lrfd-backend-bootstrap
-- Log generated: 2026-03-14T13:27:36Z
-- keystone-gov HEAD: `93aa470`
-- keystone-console HEAD: `8f7abd5`
-- keystone-deploy HEAD: `3dbaaa0`
+- Log generated: 2026-03-14T13:27:36Z (initial); extended 2026-03-14 for KDAT-022–026
+- keystone-gov HEAD at extension: `b4b34c8` (includes KDAT-024 delivery)
+- keystone-console HEAD at extension: `b254491` (includes KDAT-024 console delivery)
+- keystone-deploy HEAD at extension: `3d27116` (includes KDAT-022–026 deliveries)
+- Prior HEAD SHAs (initial log): gov `93aa470`, console `8f7abd5`, deploy `3dbaaa0`
