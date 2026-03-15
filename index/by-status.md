@@ -2,7 +2,7 @@
 
 ---
 
-## Proven — Ready to publish (15)
+## Proven — Ready to publish (16)
 
 Milestones with direct branch delivery commits, cited tests, and smoke locks.
 
@@ -23,8 +23,9 @@ Milestones with direct branch delivery commits, cited tests, and smoke locks.
 | [KDAT-023](../milestones/KDAT-023.md) | Evidence signing key custody + rotation + trust store |
 | [KDAT-024](../milestones/KDAT-024.md) | Operational scope guard + CLARIFY_MODEL clarifier |
 | [KDAT-025](../milestones/KDAT-025.md) | Cloudflare Access smoke proof |
+| [KDAT-027](../milestones/KDAT-027.md) | KDAT log publisher + external CF smoke timer |
 
-## Proven — Needs review (3)
+## Proven — Needs review (2)
 
 Delivery commit exists; verification is environment-dependent or lacks a regression lock.
 
@@ -32,7 +33,6 @@ Delivery commit exists; verification is environment-dependent or lacks a regress
 |-----------|---------|
 | [KDAT-020](../milestones/KDAT-020.md) | Suggested queries panel — no smoke lock; do not cite as fully validated |
 | [KDAT-026](../milestones/KDAT-026.md) | Public demo reset timer — systemd timer; guard verified; full fire is environment-dependent |
-| [KDAT-027](../milestones/KDAT-027.md) | KDAT log publisher + 15-min CF smoke timer — timer fire confirmed in journal; not CI-verifiable |
 
 ---
 

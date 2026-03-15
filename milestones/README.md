@@ -56,7 +56,7 @@ Full definitions: [docs/evidence-classes.md](../docs/evidence-classes.md)
 - [KDAT-001A](KDAT-001A.md) — Single-machine governed retrieval proof
 - [KDAT-002](KDAT-002.md) — Console operator workflow UX
 
-### Branch-proven — Ready to publish (15)
+### Branch-proven — Ready to publish (16)
 - [KDAT-003](KDAT-003.md) — Document governance UI + APIs
 - [KDAT-008](KDAT-008.md) — Case pack offline verifier
 - [KDAT-012](KDAT-012.md) — Structured requirements extraction
@@ -72,11 +72,11 @@ Full definitions: [docs/evidence-classes.md](../docs/evidence-classes.md)
 - [KDAT-023](KDAT-023.md) — Evidence signing key custody + rotation + trust store
 - [KDAT-024](KDAT-024.md) — Operational scope guard + CLARIFY_MODEL clarifier
 - [KDAT-025](KDAT-025.md) — Cloudflare Access smoke proof
+- [KDAT-027](KDAT-027.md) — KDAT log publisher + external CF smoke timer
 
-### Branch-proven — Needs review (3)
+### Branch-proven — Needs review (2)
 - [KDAT-020](KDAT-020.md) — Suggested queries panel (delivery commit exists; no regression lock)
 - [KDAT-026](KDAT-026.md) — Public demo reset timer (systemd timer; environment-dependent verification)
-- [KDAT-027](KDAT-027.md) — KDAT log publisher + external CF smoke timer (timer fire confirmed on live system; not CI-verifiable)
 
 ### Doc-only
 - [KDAT-007](KDAT-007.md) — Supervisor workflow (doc-only reference)

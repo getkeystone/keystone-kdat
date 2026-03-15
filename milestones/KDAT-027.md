@@ -2,7 +2,7 @@
 
 **Status:** Proven
 **Evidence class:** Proven on current branch
-**Publication status:** Needs review
+**Publication status:** Ready to publish
 
 ---
 
@@ -10,8 +10,9 @@
 
 An automated KDAT log publisher regenerates `docs/kdat-log.md` from git history
 across all three repos and pushes to a separate docs repo. A hardened external
-Cloudflare smoke timer runs `smoke-cf-with-fix.sh` every 15 minutes: probe →
-best-effort fix → re-check. Timer firing confirmed on a live system via journalctl.
+Cloudflare smoke timer fires every 15 minutes: probe → best-effort fix → re-check.
+Timer firing confirmed on a live system via journalctl. Structural verification
+covered by `scripts/test_kdat027_timer.sh` (PASS 13 / FAIL 0; 9 assertions CI-safe).
 
 ---
 
@@ -90,6 +91,7 @@ delivery: PASS 7 / FAIL 0 / SKIP 1."
 |------|----------|-------|
 | Delivery commit 1 | keystone-deploy `d504cda` | Initial publisher + timer units; 5 files, 269 insertions |
 | Delivery commit 2 | keystone-deploy `36fe893` | Hardened wrapper + 15-min timer; 6 files, 148 insertions |
+| Verification script | `scripts/test_kdat027_timer.sh` | PASS 13 / FAIL 0; 9 CI-safe + 2 live-system assertions |
 | KDAT log publisher | `scripts/publish-kdat.sh` | Idempotent; fails clearly if keystone-docs missing |
 | Smoke wrapper | `scripts/smoke-cf-with-fix.sh` | Three-step probe → fix → re-check |
 | Service unit | `docs/systemd/smoke-cf.service` | Hardened oneshot user unit |
@@ -103,23 +105,36 @@ Both commits are on `lrfd-backend-bootstrap`.
 
 ## Verification and tests
 
-- smoke-cf.sh: **PASS 7 / FAIL 0 / SKIP 1** (T6 passes with service token; T8 skips if PDM off)
-- systemd-analyze verify: clean on both service and timer units
-- Timer confirmed active on live system:
-  - `systemctl --user list-timers smoke-cf.timer` → LAST=22:00:17 NEXT=22:15:00
-  - journalctl tail confirmed smoke-cf PASS banner in journal
-- Guard: installer checks `scripts/smoke-cf.sh` exists and is executable before proceeding
+**`scripts/test_kdat027_timer.sh`** — 11 assertions (9 CI-safe, 2 live-system); PASS 13 / FAIL 0:
 
-No automated CI harness for timer firing (systemd constraint). Journal-confirmed
-fire on live system is the primary runtime verification.
+| # | Assertion | CI-safe? |
+|---|-----------|----------|
+| 1 | `systemd-analyze verify docs/systemd/smoke-cf.service` → clean | Yes |
+| 2 | `systemd-analyze verify docs/systemd/smoke-cf.timer` → clean | Yes |
+| 3 | `smoke-cf.service` contains `NoNewPrivileges=yes` | Yes |
+| 4 | `smoke-cf.service` contains `ProtectSystem=strict` | Yes |
+| 5 | `smoke-cf.service` contains `PrivateTmp=yes` | Yes |
+| 6 | `smoke-cf.timer` contains `OnCalendar=*:0/15` | Yes |
+| 7 | `smoke-cf.timer` contains `Persistent=true` | Yes |
+| 8 | ExecStart wrapper exists and is executable | Yes |
+| 9 | `smoke-cf.sh`, `install-smoke-cf-timer.sh`, `publish-kdat.sh` executable | Yes |
+| 10 | `smoke-cf.timer` is active (live system) | No — skipped if no user session |
+| 11 | Next trigger is set (`list-timers`) | No — skipped if no user session |
+
+Additional evidence:
+- smoke-cf.sh: **PASS 7 / FAIL 0 / SKIP 1** (T6 passes with service token; T8 skips if PDM off)
+- systemd-analyze verify: clean on both unit files (delivery commit `36fe893`; re-confirmed by assertion 1–2)
+- Timer firing confirmed live: LAST=22:00:17, NEXT=22:15:00; journalctl smoke-cf PASS banner in journal
+- Installer guard: refuses if `scripts/smoke-cf.sh` absent or non-executable
 
 ---
 
 ## Known limitations and caveats
 
-- Publication status is "Needs review" because the 15-minute timer cannot be
-  exercised in a stateless test environment. Timer firing was confirmed on the
-  live system via journalctl, but this is environment-dependent.
+- The 15-minute timer cannot be fully exercised in a stateless CI environment.
+  Structural assertions (unit lint, script existence, hardening directives) are
+  CI-safe. Live timer fire was confirmed on the delivery system via journalctl;
+  repeated operation over days/weeks has not been independently measured.
 - `public-fix.sh` is best-effort and runs once. If the root cause persists,
   the re-check will also fail; no retry loop.
 - `publish-kdat.sh` requires a locally cloned `keystone-docs` repo at a known
@@ -132,12 +147,13 @@ fire on live system is the primary runtime verification.
 
 ## Source basis
 
-Two commits on lrfd-backend-bootstrap. Date: 2026-03-14.
+Two delivery commits + one verification artifact on lrfd-backend-bootstrap. Date: 2026-03-14.
 
-| Commit | Purpose |
-|--------|---------|
+| Commit / Artifact | Purpose |
+|-------------------|---------|
 | `d504cda` | Initial KDAT publisher + hourly smoke-cf timer units |
 | `36fe893` | Hardened wrapper + 15-min timer; live-system timer fire verified |
+| `scripts/test_kdat027_timer.sh` | 11-assertion structural verification; PASS 13/FAIL 0 |
 
 keystone-deploy HEAD at delivery: `36fe893`
 
@@ -148,14 +164,17 @@ keystone-deploy HEAD at delivery: `36fe893`
 ```bash
 cd ~/keystone/keystone-deploy
 
-# Check timer status (requires live system with linger enabled):
-systemctl --user status smoke-cf.timer
+# Structural verification (CI-safe — assertions 1–9):
+bash scripts/test_kdat027_timer.sh
+# Expected: PASS 13 / FAIL 0
 
 # Run smoke manually:
 bash scripts/smoke-cf.sh
 # Expected: PASS 7 / FAIL 0 / SKIP 1
 
-# Run wrapper manually:
-bash scripts/smoke-cf-with-fix.sh
-# Expected: PASS banner in output; check journal for START / PASS banners
+# Check live timer status and next trigger (live system only):
+systemctl --user list-timers smoke-cf.timer --no-pager
+
+# Confirm last run was a PASS (live system only):
+journalctl --user -u smoke-cf.service -n 5 --no-pager | grep -E "PASS|FAIL|Finished"
 ```
