@@ -73,9 +73,10 @@ Full definitions: [docs/evidence-classes.md](../docs/evidence-classes.md)
 - [KDAT-024](KDAT-024.md) — Operational scope guard + CLARIFY_MODEL clarifier
 - [KDAT-025](KDAT-025.md) — Cloudflare Access smoke proof
 
-### Branch-proven — Needs review (2)
+### Branch-proven — Needs review (3)
 - [KDAT-020](KDAT-020.md) — Suggested queries panel (delivery commit exists; no regression lock)
 - [KDAT-026](KDAT-026.md) — Public demo reset timer (systemd timer; environment-dependent verification)
+- [KDAT-027](KDAT-027.md) — KDAT log publisher + external CF smoke timer (timer fire confirmed on live system; not CI-verifiable)
 
 ### Doc-only
 - [KDAT-007](KDAT-007.md) — Supervisor workflow (doc-only reference)
@@ -97,5 +98,5 @@ KDAT-002) are historical baselines. Some (KDAT-004 through KDAT-006,
 KDAT-009 through KDAT-010) have curated summaries but no branch delivery
 commits in the current log. Evidence class is the definitive signal.
 
-Ledger currently covers KDAT-001A through KDAT-026. Publication readiness
+Ledger currently covers KDAT-001A through KDAT-027. Publication readiness
 varies by milestone; see individual pages.

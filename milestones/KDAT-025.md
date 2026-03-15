@@ -27,8 +27,14 @@ allows origin health checks, and blocks login bypass attempts in CF mode.
   - **T8**: Public demo mode admin block (conditional; skipped if PDM off)
 - `docs/public-access.md`: "Cloudflare smoke" section with test table, example
   outputs for gated and open cases, and service-token setup instructions
-- Verified run: **PASS 6 / FAIL 0 / SKIP 2** (T6 skipped — no service token in test env;
-  T8 skipped — PDM off; SKIPs are environment-conditional, not failures)
+- Subsequent commits hardened T6: strict env validation (space/paste checks on token
+  headers), inline self-diagnosis on failure (abbreviated client_id, HTTP code,
+  Location headers, cf-ray), and explicit success criterion (HTTP 200 from
+  `/api/health` with CF-Access-Client-Id/Secret headers = PASS)
+- `docs/public-access.md`: "Fixing T6 = 302" root cause section — service_token_status
+  field, Zero Trust UI path, 5-step checklist
+- Verified run: **PASS 7 / FAIL 0 / SKIP 1** (T6 passes with service token configured;
+  T8 skipped — PDM off; SKIP is environment-conditional, not a failure)
 
 ---
 
@@ -47,9 +53,10 @@ allows origin health checks, and blocks login bypass attempts in CF mode.
 
 "A Cloudflare Access smoke suite verifies that the public URL is correctly
 gated, unauthenticated requests are redirected to the CF team domain,
-origin health checks remain accessible for ops, and login bypass via direct
-`/api/auth/login` is blocked in CF mode. Verified: 6 PASS, 2 SKIP
-(environment-conditional — no failures)."
+origin health checks remain accessible for ops, login bypass via direct
+`/api/auth/login` is blocked in CF mode, and authenticated service-token
+probes succeed. Verified: 7 PASS, 1 SKIP (T8 is PDM-conditional —
+environment-conditional, not a failure)."
 
 ---
 
@@ -57,9 +64,12 @@ origin health checks remain accessible for ops, and login bypass via direct
 
 | Item | Location | Notes |
 |------|----------|-------|
-| Delivery commit | keystone-deploy `25c5a5e` | test(kdat-025) — 2 files, 394 insertions |
-| Smoke suite | `scripts/smoke-cf.sh` | 8 tests; 289 lines |
-| Public access docs | `docs/public-access.md` | "Cloudflare smoke" section |
+| Delivery commit (initial) | keystone-deploy `25c5a5e` | test(kdat-025) — 8-test smoke suite, 394 insertions |
+| Hardening commit 1 | keystone-deploy `8960989` | Self-diagnosing T6 probe + env validation |
+| Hardening commit 2 | keystone-deploy `a5cd164` | docs: clarify service-token 302 root cause |
+| Hardening commit 3 | keystone-deploy `1b343ff` | T6 explicit success criterion → PASS 7/FAIL 0/SKIP 1 |
+| Smoke suite | `scripts/smoke-cf.sh` | 8 tests; all commits on lrfd-backend-bootstrap |
+| Public access docs | `docs/public-access.md` | "Cloudflare smoke" section; T6 self-diagnosis; T6 fix checklist |
 
 ---
 
@@ -74,19 +84,21 @@ origin health checks remain accessible for ops, and login bypass via direct
 | T3 | Origin /api/health → status=ok db=true | Always |
 | T4 | Origin / → 200 HTML | Always |
 | T5 | JS asset from HTML → 200 | Always |
-| T6 | Auth probe via service token → expected response | Skipped if no token |
+| T6 | Authenticated public probe via service token → HTTP 200 from /api/health | Passes with token; skipped if absent |
 | T7 | /api/auth/login → 403 in CF mode at origin | Always |
 | T8 | PDM admin block | Skipped if PDM off |
 
-Run result (2026-03-14): PASS 6 / FAIL 0 / SKIP 2
+Run result (2026-03-14): PASS 7 / FAIL 0 / SKIP 1 (T6 passes with service token; T8 skipped — PDM off)
 
 ---
 
 ## Known limitations and caveats
 
-- T6 (service token probe) requires `CF_SERVICE_TOKEN` to be set in the test
-  environment; skipped in CI without the token. This is expected behavior,
-  not a test failure.
+- T6 (service token probe) requires `CLOUDFLARE_ACCESS_CLIENT_ID` and
+  `CLOUDFLARE_ACCESS_CLIENT_SECRET` to be set. It now passes when those are
+  configured (HTTP 200 from `/api/health`); it is skipped in CI without them.
+  T6 includes inline self-diagnosis on failure: abbreviated client_id, HTTP
+  code, Location headers, cf-ray, and a one-line root-cause diagnosis.
 - T8 (PDM block) requires `PUBLIC_DEMO_MODE=1`; skipped when PDM is off.
 - This is a smoke test suite, not a security audit. CF Access policy
   configuration correctness is asserted at the HTTP response level only.
@@ -97,8 +109,14 @@ Run result (2026-03-14): PASS 6 / FAIL 0 / SKIP 2
 
 ## Source basis
 
-Branch delivery commit on lrfd-backend-bootstrap. Date: 2026-03-14.
-Commit SHA: `25c5a5e4c6bbee3a7f31ff554aa69284e0997921`
+Four commits on lrfd-backend-bootstrap. Date: 2026-03-14.
+
+| Commit | Purpose |
+|--------|---------|
+| `25c5a5e` | Initial smoke suite (8 tests, PASS 6/FAIL 0/SKIP 2) |
+| `8960989` | T6 self-diagnosing env validation + failure debug block |
+| `a5cd164` | Docs: service-token 302 root cause + Zero Trust fix checklist |
+| `1b343ff` | T6 explicit pass criterion → PASS 7/FAIL 0/SKIP 1 |
 
 ---
 
@@ -107,5 +125,5 @@ Commit SHA: `25c5a5e4c6bbee3a7f31ff554aa69284e0997921`
 ```bash
 cd ~/keystone/keystone-deploy
 bash scripts/smoke-cf.sh
-# Expected: PASS 6 / FAIL 0 / SKIP 2 (or PASS 8 if CF_SERVICE_TOKEN set and PDM on)
+# Expected: PASS 7 / FAIL 0 / SKIP 1 (T6 passes with service token; T8 skips if PDM off)
 ```

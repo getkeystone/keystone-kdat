@@ -7,8 +7,8 @@ what test evidence backs each claim, and what each milestone explicitly does
 not prove. Every page carries an evidence class and a publication status.
 Read those first. This is an evidence ledger, not a brochure.
 
-The ledger tracks milestones through KDAT-026. 17 milestones are currently
-ready to publish. 16 have delivery commits on the tracked branch. 8 are
+The ledger tracks milestones through KDAT-027. 17 milestones are currently
+ready to publish. 18 have delivery commits on the tracked branch. 8 are
 curated summaries awaiting validation.
 
 ---
@@ -85,21 +85,21 @@ Generated from branch `lrfd-backend-bootstrap` (2026-03-14).
 
 | Category | Count |
 |----------|-------|
-| Proven on current branch | 16 |
+| Proven on current branch | 18 |
 | Historical baseline | 2 |
 | Curated summary | 8 |
 | Doc-only reference | 1 |
 | **Ready to publish** | **17** |
 
 Ready to publish = 15 proven-on-branch milestones + 2 historical baselines.
-KDAT-020 and KDAT-026 (proven on branch) carry "Needs review" status:
-KDAT-020 lacks a smoke regression lock; KDAT-026 requires live systemd environment
-to verify timer firing.
+KDAT-020, KDAT-026, and KDAT-027 (proven on branch) carry "Needs review" status:
+KDAT-020 lacks a smoke regression lock; KDAT-026 and KDAT-027 require a live
+systemd environment to verify timer firing.
 
 Branch HEAD SHAs at generation time:
-- keystone-gov: `93aa470`
-- keystone-console: `8f7abd5`
-- keystone-deploy: `3dbaaa0`
+- keystone-gov: `c0a9a27`
+- keystone-console: `3e4f589`
+- keystone-deploy: `36fe893`
 
 ---
 

@@ -79,14 +79,16 @@ pages as if they were independently proven milestones.
 | 2026-03-14 | KDAT-024 | Operational scope guard + CLARIFY_MODEL clarifier |
 | 2026-03-14 | KDAT-025 | Cloudflare Access smoke proof |
 | 2026-03-14 | KDAT-026 | Public demo reset timer |
+| 2026-03-14 | KDAT-027 | KDAT log publisher + external CF smoke timer |
 
 ---
 
 ## Evidence log metadata
 
 - Branch: lrfd-backend-bootstrap
-- Log generated: 2026-03-14T13:27:36Z (initial); extended 2026-03-14 for KDAT-022–026
-- keystone-gov HEAD at extension: `b4b34c8` (includes KDAT-024 delivery)
-- keystone-console HEAD at extension: `b254491` (includes KDAT-024 console delivery)
-- keystone-deploy HEAD at extension: `3d27116` (includes KDAT-022–026 deliveries)
+- Log generated: 2026-03-14T13:27:36Z (initial); extended 2026-03-14 for KDAT-022–026; extended 2026-03-14 for KDAT-027
+- keystone-gov HEAD at KDAT-027 extension: `c0a9a27`
+- keystone-console HEAD at KDAT-027 extension: `3e4f589`
+- keystone-deploy HEAD at KDAT-027 extension: `36fe893` (includes KDAT-027 deliveries)
+- Prior HEAD SHAs (KDAT-022–026 extension): gov `b4b34c8`, console `b254491`, deploy `3d27116`
 - Prior HEAD SHAs (initial log): gov `93aa470`, console `8f7abd5`, deploy `3dbaaa0`
